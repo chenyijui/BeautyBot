@@ -78,12 +78,62 @@ function receivedMessage (event) {
                 sendImageMessage(senderID);
                 sendTextMessage(senderID, '美圖來了！請稍後！');
                 break;
+            case '要吃啥':
+                sendEattMessage(senderID);
+                break;
         default:
-                sendTextMessage(senderID, '你說啥？');
+                sendTextMessage(senderID, '指令:\n給我美圖\n要吃啥\n神奇圖片');
         }
     } else if (messageAttachments) {
         sendTextMessage(senderID, "Message with attachment received");
         }
+}
+
+function sendImageMessage(recipientId) {
+    request({
+        'method': 'GET',
+        'url': 'http://gank.io/api/data/%E7%A6%8F%E5%88%A9/100/1'
+    },function(error, response, body) {
+        var data = JSON.parse(body);
+        var index = Math.floor(Math.random()*data.results.length);
+        var url = data.results[index].url;
+        console.log(url);
+        //console.log('data', data);
+        //console.log('index', index);
+        var messageData = {
+            recipient: {
+                id: recipientId
+            },
+            message:{
+                attachment: {
+                type: 'image',
+                    payload: {
+                        url: url
+                    }
+                }
+            }
+    };
+
+    callSendAPI(messageData);
+
+    });
+}
+
+function sendEattMessage(recipientId) {
+    var a = ['老三吃炒飯', '霸', '第三市場', '吃屎', '日式', '佩蓉', '秀欽', '山園', '問小盛', '胎哥想', '全家你家', '萬惡學餐', '7', '火車便當'];
+    var index = Math.floor(Math.random()*a.length);
+    var eat = a[index];
+    console.log(eat);
+    var messageData = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            text: eat
+        }
+    };
+
+    callSendAPI(messageData);
 }
 
 function sendTextMessage(recipientId, messageText) {
