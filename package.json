@@ -1,0 +1,17 @@
+{
+  "name": "beauty-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+      "start": "node app.js"
+  },
+  "author": "CYJ",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "config": "^1.26.2",
+    "express": "^4.15.4",
+    "request": "^2.81.0"
+  }
+}
