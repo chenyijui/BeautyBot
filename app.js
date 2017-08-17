@@ -4,7 +4,7 @@ var request = require('request');
 var bodyparser = require('body-parser');
 
 var app = express();
-
+var port = process.env.PORT || 8000
 app.use(bodyparser.json());
 
 const PAGE_ACCESS_TOKEN = config.get('devConfig.pageAccessToken');
@@ -169,6 +169,6 @@ function callSendAPI(messageData) {
 }
 
 
-app.listen(6677, function() {
-    console.log('listening 6677');
-})
+app.listen(port, function() {
+    console.log("App is running on port " + port);
+});
